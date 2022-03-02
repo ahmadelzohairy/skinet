@@ -1,3 +1,4 @@
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,9 @@ namespace API
             services.AddControllers();
             services.AddDbContext<StoreContext>(options =>
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
